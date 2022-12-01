@@ -239,6 +239,116 @@ DBMS는 데이터베이스를 제어하고 관리하는 시스템을 의미하�
 3. 해시 조인 (Hash Join) <br>
 조인될 두 테이블 중 하나를 해시 테이블로 설정해 조인될 테이블의 조인 키 값을 해시 알고리즘으로 비교하여 매치되는 결과값을 얻는 조인이다. <br>
 
+<br>
+
+### Truncate Drop Delete
+1. Truncate <br>
+테이블 생성 초기 단계로 돌아간다. <br>
+데이터와 인덱스가 삭제되며 Rollback이 불가능하다. <br>
+
+<br>
+
+2. Drop <br>
+테이블이 삭제되며 Rollback이 불가능하다. <br>
+
+<br>
+
+3. Delete <br>
+원하는 데이터를 삭제하고 Rollback이 가능하다. <br>
+
+<br>
+
+### GROUP BY
+특정 컬럼을 기준으로 연산한 결과를 집계 키로 정의하여 그룹핑한다. <br>
+
+<br>
+
+### WHERE HAVING
+1. WHERE <br>
+그룹화 또는 집계가 발생되기 전 필터링한다. <br>
+
+<br>
+
+2. HAVING <br>
+그룹화 또는 집계가 발생된 후 필터링한다. <br>
+
+> 집계 함수는 HAVING 절과 같이 사용할 수 있지만 WHERE 절과는 사용할 수 없다. <br>
+
+<br>
+
+### ON WHERE
+ON이 WHERE 절보다 먼저 실행되며 ON은 JOIN 되기 전 필터링을 하며 WHERE는 JOIN 되고 난 후 필터링한다. <br>
+
+* 쿼리 실행 순서 
+1. SELECT <br>
+2. FROM <br>
+3. WHERE <br>
+4. GROUP BY <br>
+5. ORDER BY <br>
+
+<br>
+
+### 트랜잭션
+하나의 논리적 기능을 수행하기 위한 작업의 단위를 의미한다. <br>
+
+* 트랜잭션 특징
+1. 원자성 <br>
+작업이 모두 반영되거나 반영되지 않아야 한다. <br>
+
+2. 일관성 <br>
+트랜잭션이 완료되면 데이터베이스는 언제나 일관성 있는 상태를 유지해야 한다. <br>
+
+3. 독립성 <br>
+둘 이상의 트랜잭션이 동시에 실행될 경우 서로는 서로의 작업에 끼어들 수 없다. <br>
+
+4. 지속성 <br>
+트랜잭션이 완료의 결과는 데이터베이스에 영구적으로 저장되어야 한다. <br>
+
+<br>
+
+### 트랜잭션 격리 수준
+트랜잭션의 고립 정도를 의미하며 일관성과 동시성 제어 문제를 해결하기 위해 사용한다. <br>
+
+1. UN_COMMITTED READ <br>
+트랜잭션의 COMMIT이 완료되지 않은 상태에서 다른 트랜잭션이 접근하는 격리 수준 <br>
+
+> Dirty Read, Non Repeatable Read, Phantom Read 문제 발생 <br>
+
+2. COMMITTED READ <br>
+트랜잭션 COMMIT이 완료된 경우에만 다른 트랜잭션이 접근하는 격리 수준 <br>
+
+> Non Repeatable Read, Phantom Read 문제 발생 <br>
+
+3. REPEATABLE READ <br>
+트랜잭션 시작 전 COMMIT된 내용에 대해서만 접근하는 격리 수준 <br>
+
+> Phantom Read 문제 발생 <br>
+
+4. SERIALIZABLE <br>
+트랜잭션이 순차적으로 실행되는 격리 수준 <br>
+
+<br>
+
+### 트랜잭션 격리 수준에 따른 문제점
+1. Dirty Read (더티 리드) <br>
+트랜잭션 COMMIT이 완료되지 않았음에도 다른 트랜잭션이 접근 가능한 경우 <br>
+
+> A의 나이가 29에서 30으로 변경한 내용이 COMMIT 되기 전 B가 조회했을 경우 나이가 30으로 나오는 경우를 의미한다. <br>
+
+<br>
+
+2. Non Repeatable Read (반복 가능하지 않은 조회) <br>
+트랜잭션 내에서 같은 쿼리가 두 번 이상 실행될 경우 그 결과가 다른 문제 <br>
+
+<br>
+
+3. Phantom Read (팬텀 리드) <br>
+트랜잭션 내에서 동일한 레코드를 두 번 읽었을 경우 그 결과가 다른 문제 <br>
+
+> Non Repeatable Read와 다른 점은 Non Repeatable Read는 레코드 값이 달라질 수 있지만 Phantom Read는 새로운 레코드가 선택될 수도 있다. <br>
+
+
+
 
 
 
